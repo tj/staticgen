@@ -1,6 +1,6 @@
 # Staticgen
 
-A static website generator that lets you use HTTP servers and frameworks you already know. Just tell Staticgen how start your server, then watch it crawl your site and generate a static version with all of the pages and assets required.
+A static website generator that lets you use HTTP servers and frameworks you already know. Just tell Staticgen how to start your server, then watch it crawl your site and generate a static version with all of the pages and assets required.
 
 ## About
 
