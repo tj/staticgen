@@ -8,7 +8,6 @@ If you're unfamiliar, you can actually use the decades-old [wget command](https:
 
 I haven't done any scientific benchmarks or comparisons yet, but here are some results on my 2014 8-core MBP:
 
-- Compiles 10,000 small pages rendered per second
 - Compiles 3,296 pages of the [Signal v. Noise](https://m.signalvnoise.com/) blog in 1 second
 - Compiles my [Apex Software](https://apex.sh/) site in 150ms
 
