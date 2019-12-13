@@ -2,9 +2,15 @@
 
 A static website generator that lets you use HTTP servers and frameworks you already know. Just tell Staticgen how start your server, then watch it crawl your site and generate a static version with all of the pages and assets required.
 
-## Performance
+## About
 
-I haven't done any scientific benchmarks or comparisons yet, but on an 8-core 2014 MBP I'm able to render over 10,000 small pages per second.
+If you're unfamiliar, you can actually use the decades-old [wget command](https://apex.sh/blog/post/pre-render-wget/) to output a static website from a dynamic one, this project is purpose-built for the same idea, letting your team to use whatever HTTP servers and frameworks you're already familiar with, in any language.
+
+I haven't done any scientific benchmarks or comparisons yet, but here are some results on my 2014 8-core MBP:
+
+- Compiles 10,000 small pages rendered per second
+- Compiles 3,296 pages of the [Signal v. Noise](https://m.signalvnoise.com/) blog in 1 second
+- Compiles my [Apex Software](https://apex.sh/) site in 150ms
 
 ## Installation
 
