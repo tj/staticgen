@@ -39,7 +39,7 @@ First create the `./static.json` configuration file, for example here's the conf
 }
 ```
 
-Below is an example of a Node.js server, note that `NODE_ENV` is assigned to production so that optimizations such as Express template caches are used to improve serving, and thus pre-rendering speeds.
+Below is an example of a Node.js server, note that `NODE_ENV` is assigned to production so that optimizations such as Express template caches are used to improve serving performance.
 
 ```json
 {
@@ -47,9 +47,15 @@ Below is an example of a Node.js server, note that `NODE_ENV` is assigned to pro
 }
 ```
 
-Run the `staticgen` command to start the pre-rendering process, which starts with Staticgen executing the `command` you provided, it then waits for your server to become available on the `url` you configured. Once the server is reachable pages and assets are written to the output `dir`.
+Run the `staticgen` command to start the pre-rendering process:
 
-By default the timeout for the generation process is `5m` (5 minutes), depending on your situation you may want to increase or decrease this with the `-t, --timeout` flag, here are some examples:
+```
+$ staticgen
+```
+
+Staticgen executes the `command` you provided, waits for the server to become available on the `url` configured. The pages and assets are copied to the `dir` configured and then your server is shut down.
+
+By default the timeout for the generation process is 15 minutes, depending on your situation you may want to increase or decrease this with the `-t, --timeout` flag, here are some examples:
 
 ```
 $ staticgen -t 30s
