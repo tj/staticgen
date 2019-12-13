@@ -75,6 +75,6 @@ Staticgen does not pre-render using a headless browser, this makes it faster, ho
 
 ## Sponsors
 
-This project is [sponsored](https://github.com/sponsors/tj) by [CTO.ai](https://cto.ai/), making it easy for development teams to create and share workflow automations without leaving the command line.
+This project is sponsored by my [GitHub sponsors](https://github.com/sponsors/tj) and by [CTO.ai](https://cto.ai/), making it easy for development teams to create and share workflow automations without leaving the command line.
 
 [![](https://apex-software.imgix.net/github/sponsors/cto.png)](https://cto.ai/)
