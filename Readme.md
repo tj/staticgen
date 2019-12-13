@@ -9,7 +9,7 @@ I haven't done any scientific benchmarks or comparisons yet, but on an 8-core 20
 ## Installation
 
 ```
-$ go install github.com/tj/staticgen
+$ GO111MODULE=on go get github.com/tj/staticgen/cmd/staticgen
 ```
 
 ## Configuration
