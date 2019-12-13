@@ -1,0 +1,11 @@
+html
+  head
+    title Blog Posts
+    link(rel='stylesheet' href='/style.css')
+  body
+    h1 Blog Posts
+    each post in posts
+      article
+        h2= post.title
+        p= post.teaser
+        a(href='/posts/' + post.id) View article

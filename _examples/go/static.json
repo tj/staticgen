@@ -1,0 +1,4 @@
+{
+  "command": "go run main.go",
+  "concurrency": 50
+}

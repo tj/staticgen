@@ -1,0 +1,6 @@
+.envrc
+dist
+build/
+node_modules/
+test
+/static.json
