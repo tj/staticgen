@@ -18,6 +18,9 @@ import (
 	"github.com/tj/staticgen"
 )
 
+// version of staticgen.
+var version string
+
 // http transport.
 var transport = &http.Transport{
 	DialContext: (&net.Dialer{
@@ -45,8 +48,9 @@ func main() {
 		return os.Chdir(*dir)
 	})
 
-	generate(app)
-	serve(app)
+	generateCmd(app)
+	serveCmd(app)
+	versionCmd(app)
 
 	_, err := app.Parse(os.Args[1:])
 	if err != nil {
@@ -54,8 +58,8 @@ func main() {
 	}
 }
 
-// generate command.
-func generate(app *kingpin.Application) {
+// generateCmd command.
+func generateCmd(app *kingpin.Application) {
 	cmd := app.Command("generate", "Generate static website").Default()
 	timeout := cmd.Flag("timeout", "Timeout of website generation").Short('t').Default("15m").String()
 	cmd.Action(func(_ *kingpin.ParseContext) error {
@@ -101,8 +105,8 @@ func generate(app *kingpin.Application) {
 	})
 }
 
-// serve command.
-func serve(app *kingpin.Application) {
+// serveCmd command.
+func serveCmd(app *kingpin.Application) {
 	cmd := app.Command("serve", "Serve the generated website")
 	addr := cmd.Flag("address", "Bind address").Default("localhost:3000").String()
 	cmd.Action(func(_ *kingpin.ParseContext) error {
@@ -118,5 +122,14 @@ func serve(app *kingpin.Application) {
 		server := http.FileServer(http.Dir(c.Dir))
 		fmt.Printf("Starting static file server on %s\n", *addr)
 		return http.ListenAndServe(*addr, httplog.New(server))
+	})
+}
+
+// versionCmd command.
+func versionCmd(app *kingpin.Application) {
+	cmd := app.Command("version", "Output the version.").Hidden()
+	cmd.Action(func(_ *kingpin.ParseContext) error {
+		fmt.Printf("Staticgen %s\n", version)
+		return nil
 	})
 }
