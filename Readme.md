@@ -13,8 +13,10 @@ I haven't done any scientific benchmarks or comparisons yet, but here are some r
 
 ## Installation
 
-```
-$ GO111MODULE=on go get github.com/tj/staticgen/cmd/staticgen
+Via [gobinaries.com](https://gobinaries.com):
+
+```sh
+$ curl -sf https://gobinaries.com/tj/staticgen/cmd/staticgen | sh
 ```
 
 ## Configuration
