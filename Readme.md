@@ -92,7 +92,7 @@ This project is sponsored by [CTO.ai](https://cto.ai/), making it easy for devel
 
 [![](https://apex-software.imgix.net/github/sponsors/cto.png)](https://cto.ai/)
 
-And by my [GitHub sponsors](https://github.com/sponsors/tj):
+And my [GitHub sponsors](https://github.com/sponsors/tj):
 
 [<img src="https://sponsors-api-u2fftug6kq-uc.a.run.app/sponsor/avatar/0" width="35">](https://sponsors-api-u2fftug6kq-uc.a.run.app/sponsor/profile/0)
 [<img src="https://sponsors-api-u2fftug6kq-uc.a.run.app/sponsor/avatar/1" width="35">](https://sponsors-api-u2fftug6kq-uc.a.run.app/sponsor/profile/1)
