@@ -183,7 +183,8 @@ func (c *Crawler) visit(ctx context.Context, t Target) ([]*url.URL, Resource, er
 	r.Duration = time.Since(start)
 	r.Body = res.Body
 
-	if c.Allow404 && res.StatusCode == 404 {
+	// ignore 404s
+	if res.StatusCode == 404 && c.Allow404 {
 		return nil, r, nil
 	}
 
