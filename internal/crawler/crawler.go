@@ -43,6 +43,7 @@ type Resource struct {
 type Crawler struct {
 	URL         *url.URL
 	Concurrency int
+	Allow404    bool
 	HTTPClient  *http.Client
 
 	pending    sync.WaitGroup
@@ -181,6 +182,10 @@ func (c *Crawler) visit(ctx context.Context, t Target) ([]*url.URL, Resource, er
 	r.StatusCode = res.StatusCode
 	r.Duration = time.Since(start)
 	r.Body = res.Body
+
+	if c.Allow404 && res.StatusCode == 404 {
+		return nil, r, nil
+	}
 
 	// http error
 	if res.StatusCode >= 300 {

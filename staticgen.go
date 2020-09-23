@@ -105,6 +105,7 @@ func (g *Generator) Start(ctx context.Context) error {
 	// setup crawler
 	g.crawler = crawler.Crawler{
 		URL:         u,
+		Allow404:    g.Allow404,
 		Concurrency: g.Concurrency,
 		HTTPClient:  g.HTTPClient,
 	}
