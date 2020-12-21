@@ -28,6 +28,7 @@ Configuration is stored within a `./static.json` file in your project's root dir
 - __dir__ —  The static website output directory. Defaults to `"build"`.
 - __pages__ —  A list of paths added to crawl, typically including unlinked pages such as landing pages. Defaults to `[]`.
 - __concurrency__ — The number of concurrent pages to crawl. Defaults to `30`.
+- __resource_timeout__ — Page download timeout in seconds. Defaults to `10`.
 
 ## Guide
 

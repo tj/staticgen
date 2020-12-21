@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"net"
 	"net/http"
 	"os"
 	"os/signal"
@@ -20,22 +19,6 @@ import (
 
 // version of staticgen.
 var version string
-
-// http transport.
-var transport = &http.Transport{
-	DialContext: (&net.Dialer{
-		Timeout: 30 * time.Second,
-	}).DialContext,
-	MaxIdleConns:        100,
-	MaxIdleConnsPerHost: 100,
-	IdleConnTimeout:     time.Minute,
-}
-
-// http client.
-var client = &http.Client{
-	Timeout:   time.Second * 10,
-	Transport: transport,
-}
 
 // main.
 func main() {
@@ -64,9 +47,7 @@ func generateCmd(app *kingpin.Application) {
 	timeout := cmd.Flag("timeout", "Timeout of website generation").Short('t').Default("15m").String()
 	cmd.Action(func(_ *kingpin.ParseContext) error {
 		// generator
-		g := staticgen.Generator{
-			HTTPClient: client,
-		}
+		g := staticgen.Generator{}
 
 		// parse timeout
 		d, err := time.ParseDuration(*timeout)

@@ -6,6 +6,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -28,13 +29,20 @@ type Target struct {
 	URL    *url.URL
 }
 
+// http transport.
+var transport = &http.Transport{
+	DialContext: (&net.Dialer{
+		Timeout: 30 * time.Second,
+	}).DialContext,
+	MaxIdleConns:        100,
+	MaxIdleConnsPerHost: 100,
+	IdleConnTimeout:     time.Minute,
+}
+
 // Generator is a static website generator.
 type Generator struct {
 	// Config used for crawling and producing the static website.
 	Config
-
-	// HTTPClient ...
-	HTTPClient *http.Client
 
 	// crawler
 	crawler crawler.Crawler
@@ -102,12 +110,18 @@ func (g *Generator) Start(ctx context.Context) error {
 		return fmt.Errorf("parsing url: %w", err)
 	}
 
+	// http client.
+	client := &http.Client{
+		Timeout:   g.ResourceTimeout * time.Second,
+		Transport: transport,
+	}
+
 	// setup crawler
 	g.crawler = crawler.Crawler{
 		URL:         u,
 		Allow404:    g.Allow404,
 		Concurrency: g.Concurrency,
-		HTTPClient:  g.HTTPClient,
+		HTTPClient:  client,
 	}
 
 	// start workers
