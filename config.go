@@ -2,6 +2,7 @@ package staticgen
 
 import (
 	"github.com/tj/go-config"
+	"time"
 )
 
 // Config is the static website generator configuration.
@@ -26,6 +27,11 @@ type Config struct {
 	// Allow404 can be enabled to opt-in to pages resulting in a 404,
 	// which otherwise lead to an error.
 	Allow404 bool `json:"allow_404"`
+
+	// ResourceTimeout specifies a time limit in seconds for requests for any resources.
+	// The timeout includes connection time, any redirects, and reading the response body.
+	// Set to 0 to disable. Defaults to 10.
+	ResourceTimeout time.Duration `json:"resource_timeout"`
 }
 
 // Load configuration from the given path.
@@ -40,6 +46,10 @@ func (c *Config) Load(path string) error {
 
 	if c.Concurrency == 0 {
 		c.Concurrency = 30
+	}
+
+	if c.ResourceTimeout == 0 {
+		c.ResourceTimeout = 10
 	}
 
 	err := config.Load(path, c)
