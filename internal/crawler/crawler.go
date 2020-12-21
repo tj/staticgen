@@ -19,8 +19,8 @@ import (
 	"github.com/tj/staticgen/internal/deduplicator"
 )
 
-// atImportRe is the regexp used for parsing @import directives.
-var atImportRe = regexp.MustCompile(`@import *"([^"]+)"`)
+// cssResourcesRe is the regexp used for parsing @import directives and url() functions.
+var cssResourcesRe = regexp.MustCompile(`@import *["']([^"']+)["']|url\( *["']?([^)'"]+)["']? *\)`)
 
 // A Target is a target URL to crawl, with optional Parent page URL.
 type Target struct {
@@ -231,15 +231,19 @@ func visitCSS(r io.Reader, root, u *url.URL) ([]*url.URL, error) {
 		return nil, err
 	}
 
-	return parseImports(b, root, u)
+	return parseCSS(b, root, u)
 }
 
-// parseImports returns CSS imports.
-func parseImports(b []byte, root, u *url.URL) (urls []*url.URL, err error) {
-	matches := atImportRe.FindAllSubmatch(b, -1)
+// parseCSS returns CSS imports.
+func parseCSS(b []byte, root, u *url.URL) (urls []*url.URL, err error) {
+	matches := cssResourcesRe.FindAllSubmatch(b, -1)
 	for _, m := range matches {
-		s := string(m[1])
-
+		var s string
+		if m[2] != nil {
+			s = string(m[2])
+		} else {
+			s = string(m[1])
+		}
 		target, err := url.Parse(s)
 		if err != nil {
 			return nil, fmt.Errorf("parsing css import %q: %w", s, err)
@@ -267,8 +271,8 @@ func visitHTML(r io.Reader, root, u *url.URL) ([]*url.URL, error) {
 
 // parseLinks returns resolved target urls in the document.
 func parseLinks(doc *dom.Document, root, u *url.URL) (urls []*url.URL, err error) {
-	doc.Find("a, link").Each(func(i int, s *dom.Selection) {
-		href := s.AttrOr("href", s.AttrOr("src", ""))
+	doc.Find("a, link, img, source").Each(func(i int, s *dom.Selection) {
+		href := s.AttrOr("href", s.AttrOr("src", s.AttrOr("srcset", "")))
 		if href == "" {
 			return
 		}
